@@ -36,6 +36,12 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     lazy var sequenceRequestHandler = VNSequenceRequestHandler()
     
+    // Is the default video hidden?
+    var videoHidden = false
+    
+    // Video Layer
+    @IBOutlet weak var videoView:VideoPlay!
+    
     // MARK: UIViewController overrides
     
     override func viewDidLoad() {
@@ -46,6 +52,12 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         self.prepareVisionRequest()
         
         self.session?.startRunning()
+        
+        // Load Video to play
+        
+        let movieURL = NSURL.fileURL(withPath: Bundle.main.path(forResource: "defaultEyes", ofType: "mov")!)
+
+        videoView.playVideoWithURL(url: movieURL)
     }
     
     override func didReceiveMemoryWarning() {
@@ -60,6 +72,16 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     // Ensure that the interface stays locked in Portrait.
     override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
         return .portrait
+    }
+    
+    // Ensure that the home bar is hidden
+    override var prefersHomeIndicatorAutoHidden: Bool {
+        return true
+    }
+    
+    // Ensure that the status bar is hidden
+    override var prefersStatusBarHidden: Bool {
+        return true
     }
     
     // MARK: AVCapture Setup
@@ -248,6 +270,8 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             }
             DispatchQueue.main.async {
                 // Add the observations to the tracking list
+                // Doesn't always mean a face is present
+//                print("dispatchQueue to main thread observtions !!!!!!!!!!!!!!!!!!!!!")
                 for observation in results {
                     let faceTrackingRequest = VNTrackObjectRequest(detectedObjectObservation: observation)
                     requests.append(faceTrackingRequest)
@@ -301,6 +325,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         faceRectangleShapeLayer.lineWidth = 5
         faceRectangleShapeLayer.shadowOpacity = 0.7
         faceRectangleShapeLayer.shadowRadius = 5
+        print("boundingbox: \(faceRectangleShapeLayer.position)")
         
         let faceLandmarksShapeLayer = CAShapeLayer()
         faceLandmarksShapeLayer.name = "FaceLandmarksLayer"
@@ -521,6 +546,17 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         
         if newTrackingRequests.isEmpty {
             // Nothing to track, so abort.
+            print("if video not on, reveal")
+            if(videoHidden){
+                DispatchQueue.main.async {
+                    self.videoView.isHidden = false
+                    self.videoHidden = false;
+                    print("turnedOn")
+                }
+
+            }
+
+            
             return
         }
         
