@@ -553,11 +553,15 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                     self.videoHidden = false;
                     print("turnedOn")
                 }
-
             }
-
-            
             return
+        }else{
+            if(!videoHidden){
+                DispatchQueue.main.async {
+                    self.videoHidden = true;
+                    self.videoView.isHidden = true
+                }
+            }
         }
         
         // Perform face landmark tracking on detected faces.
