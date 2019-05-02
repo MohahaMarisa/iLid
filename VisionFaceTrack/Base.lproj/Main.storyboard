@@ -29,18 +29,18 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Real me is unavailable rn. I can tell them what you say in the next " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="9" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cj7-u3-bSb" userLabel="Text Label">
-                                <rect key="frame" x="-89" y="367.66666666666669" width="553" height="76.666666666666686"/>
+                                <rect key="frame" x="-89" y="369" width="553" height="74"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="553" id="2Yi-fk-A4s"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="32"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="31"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30 seconds" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="9" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="886-t1-iul" userLabel="Time Label">
-                                <rect key="frame" x="89.666666666666671" y="573" width="152.66666666666663" height="36"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <nil key="textColor"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30 sec" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="9" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="886-t1-iul" userLabel="Time Label">
+                                <rect key="frame" x="120.33333333333334" y="597" width="95.333333333333343" height="36"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                <color key="textColor" red="0.2504633845" green="0.478079853" blue="0.97783759719999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -51,7 +51,7 @@
                             <constraint firstItem="Fll-SD-qJI" firstAttribute="top" secondItem="mP4-Op-A0V" secondAttribute="top" id="JRp-5a-obT"/>
                             <constraint firstItem="Kj8-zT-DtO" firstAttribute="bottom" secondItem="Fll-SD-qJI" secondAttribute="bottom" id="LRA-aA-FGd"/>
                             <constraint firstItem="Fll-SD-qJI" firstAttribute="trailing" secondItem="mP4-Op-A0V" secondAttribute="trailing" id="NHL-R8-b3W"/>
-                            <constraint firstItem="886-t1-iul" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-21.5" id="Oha-6Z-fcD"/>
+                            <constraint firstItem="886-t1-iul" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-19.5" id="Oha-6Z-fcD"/>
                             <constraint firstAttribute="trailing" secondItem="Fll-SD-qJI" secondAttribute="trailing" id="Oz4-8O-EeX"/>
                             <constraint firstItem="Fll-SD-qJI" firstAttribute="bottom" secondItem="mP4-Op-A0V" secondAttribute="bottom" id="SPR-Hz-fhm"/>
                             <constraint firstItem="Fll-SD-qJI" firstAttribute="leading" secondItem="mP4-Op-A0V" secondAttribute="leading" id="Xkj-FM-IiE"/>
@@ -62,7 +62,7 @@
                             <constraint firstItem="Cj7-u3-bSb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="j0H-eg-aYl"/>
                             <constraint firstItem="Kj8-zT-DtO" firstAttribute="leading" secondItem="Fll-SD-qJI" secondAttribute="leading" id="kAK-6w-TPW"/>
                             <constraint firstItem="Cj7-u3-bSb" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="qxW-nv-XFI"/>
-                            <constraint firstItem="886-t1-iul" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="185" id="yUb-Bu-sAt"/>
+                            <constraint firstItem="886-t1-iul" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="209" id="yUb-Bu-sAt"/>
                             <constraint firstAttribute="bottom" secondItem="Fll-SD-qJI" secondAttribute="bottom" id="zfs-eu-PYj"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>

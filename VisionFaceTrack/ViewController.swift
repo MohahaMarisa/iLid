@@ -504,13 +504,13 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     @objc func onTimerFires()
     {
         timeLeft -= 1
-        timeLabel.text = "\(timeLeft) seconds."
+        timeLabel.text = "\(timeLeft) sec."
         
         if timeLeft <= 0 {
             timer?.invalidate()
             timer = nil
             timeLabel.isHidden = true
-            timeLabel.text = "\(timeLeft) seconds."
+            timeLabel.text = "\(timeLeft) sec."
             textLabel.isHidden = true
             textHidden = true
         }
@@ -520,8 +520,8 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         //var x = boundingBox.
         //let displaySize = self.captureDeviceResolution
         //let faceBounds = VNImageRectForNormalizedRect(boundingBox, Int(displaySize.width), Int(displaySize.height))
-        
-        if (boundingBox.width > 0.6 && textHidden){//if the face is big enough, and thus close enough
+        print("width: \(boundingBox.width) and height: \(boundingBox.height)")
+        if ((boundingBox.width > 0.6 || boundingBox.height > 0.5) && textHidden){//if the face is big enough, and thus close enough
             textHidden = false
             timeLabel.isHidden = false
             textLabel.isHidden = false
