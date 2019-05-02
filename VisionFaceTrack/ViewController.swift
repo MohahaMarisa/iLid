@@ -42,22 +42,33 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     // Video Layer
     @IBOutlet weak var videoView:VideoPlay!
     
+    // Image Layer
+    @IBOutlet weak var imageView: UIImageView!
+    
+    // Array to hold eye gaze images
+    var gazeImages: [UIImage] = []
+    
     // MARK: UIViewController overrides
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Load Video to play
+
+        let movieURL = NSURL.fileURL(withPath: Bundle.main.path(forResource: "defaultEyes", ofType: "mov")!)
+
+        videoView.playVideoWithURL(url: movieURL)
+        
+        // Load in all the images for eyegaze
+        for i in 0...112{
+            gazeImages.append(UIImage(named: "\(i).jpg")!)
+        }
         
         self.session = self.setupAVCaptureSession()
         
         self.prepareVisionRequest()
         
         self.session?.startRunning()
-        
-        // Load Video to play
-        
-        let movieURL = NSURL.fileURL(withPath: Bundle.main.path(forResource: "defaultEyes", ofType: "mov")!)
-
-        videoView.playVideoWithURL(url: movieURL)
     }
     
     override func didReceiveMemoryWarning() {
@@ -325,7 +336,6 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         faceRectangleShapeLayer.lineWidth = 5
         faceRectangleShapeLayer.shadowOpacity = 0.7
         faceRectangleShapeLayer.shadowRadius = 5
-        print("boundingbox: \(faceRectangleShapeLayer.position)")
         
         let faceLandmarksShapeLayer = CAShapeLayer()
         faceLandmarksShapeLayer.name = "FaceLandmarksLayer"
@@ -477,6 +487,48 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         CATransaction.commit()
     }
     
+    public func findGaze(boundingBox: CGRect){
+        //given a bounding box, i think the eyes should try looking for the center
+        //var x = boundingBox.
+        //let displaySize = self.captureDeviceResolution
+        //let faceBounds = VNImageRectForNormalizedRect(boundingBox, Int(displaySize.width), Int(displaySize.height))
+        
+        if (boundingBox.width > 0.7){//if the face is big enough, and thus close enough
+            print("text should show up")
+        }else{
+            let shouldBlink = Int.random(in: 0 ... 100)
+            if (shouldBlink < 3){
+                //should animate to blink
+                print("BLINKING")
+            }else{
+                let x = boundingBox.midX
+                let y = boundingBox.midY
+                var imgIndex = Int(3 * 16 + 8)
+                var col = 8
+                var row = 3
+                
+                switch UIDevice.current.orientation {
+                case .portraitUpsideDown:
+                    // rotation = 180
+                    print("upsidedown")
+                    col = abs(Int(y * 15))
+                    row = abs(Int(x*6))
+                case .landscapeRight:
+                    //rotation = -90
+                    print("right")
+                    col = abs(Int(x * 15))
+                    row = 6 - abs(Int(y*6))
+                default:
+                    //rotation = 0
+                    print("portrait")
+                    col = abs(Int(y*15))
+                    row = 6 - Int(x * 6)
+                }
+                imgIndex = min(111,row * 16 + col)
+                self.imageView.image = self.gazeImages[imgIndex]
+            }
+        }
+    }
     // MARK: AVCaptureVideoDataOutputSampleBufferDelegate
     /// - Tag: PerformRequests
     // Handle delegate method callback on receiving a sample buffer.
@@ -546,21 +598,18 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         
         if newTrackingRequests.isEmpty {
             // Nothing to track, so abort.
-            print("if video not on, reveal")
             if(videoHidden){
                 DispatchQueue.main.async {
                     self.videoView.isHidden = false
                     self.videoHidden = false;
-                    print("turnedOn")
+                    print("video turnedOn")
                 }
             }
             return
-        }else{
-            if(!videoHidden){
-                DispatchQueue.main.async {
-                    self.videoHidden = true;
-                    self.videoView.isHidden = true
-                }
+        }else if(!videoHidden){
+             DispatchQueue.main.async {
+                self.videoHidden = true;
+                self.videoView.isHidden = true
             }
         }
         
@@ -584,6 +633,9 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                 // Perform all UI updates (drawing) on the main queue, not the background queue on which this handler is being called.
                 DispatchQueue.main.async {
                     self.drawFaceObservations(results)
+                    print("set image with \(results[0].boundingBox)")
+                    
+                    self.findGaze(boundingBox: results[0].boundingBox)
                 }
             })
             

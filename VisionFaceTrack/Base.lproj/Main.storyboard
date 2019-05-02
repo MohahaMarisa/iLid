@@ -21,6 +21,9 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Kj8-zT-DtO">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fll-SD-qJI" userLabel="Video View" customClass="VideoPlay" customModule="VisionFaceTrack" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -28,18 +31,23 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="Kj8-zT-DtO" firstAttribute="top" secondItem="Fll-SD-qJI" secondAttribute="top" id="BF1-8G-PM1"/>
                             <constraint firstItem="Fll-SD-qJI" firstAttribute="top" secondItem="mP4-Op-A0V" secondAttribute="top" id="JRp-5a-obT"/>
+                            <constraint firstItem="Kj8-zT-DtO" firstAttribute="bottom" secondItem="Fll-SD-qJI" secondAttribute="bottom" id="LRA-aA-FGd"/>
                             <constraint firstItem="Fll-SD-qJI" firstAttribute="trailing" secondItem="mP4-Op-A0V" secondAttribute="trailing" id="NHL-R8-b3W"/>
                             <constraint firstAttribute="trailing" secondItem="Fll-SD-qJI" secondAttribute="trailing" id="Oz4-8O-EeX"/>
                             <constraint firstItem="Fll-SD-qJI" firstAttribute="bottom" secondItem="mP4-Op-A0V" secondAttribute="bottom" id="SPR-Hz-fhm"/>
                             <constraint firstItem="Fll-SD-qJI" firstAttribute="leading" secondItem="mP4-Op-A0V" secondAttribute="leading" id="Xkj-FM-IiE"/>
+                            <constraint firstItem="Kj8-zT-DtO" firstAttribute="trailing" secondItem="Fll-SD-qJI" secondAttribute="trailing" id="aKi-ch-uoD"/>
                             <constraint firstItem="Fll-SD-qJI" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="bIr-uG-NKe"/>
                             <constraint firstItem="Fll-SD-qJI" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="dv5-66-Gh6"/>
+                            <constraint firstItem="Kj8-zT-DtO" firstAttribute="leading" secondItem="Fll-SD-qJI" secondAttribute="leading" id="kAK-6w-TPW"/>
                             <constraint firstAttribute="bottom" secondItem="Fll-SD-qJI" secondAttribute="bottom" id="zfs-eu-PYj"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="imageView" destination="Kj8-zT-DtO" id="iS1-gg-Jww"/>
                         <outlet property="previewView" destination="mP4-Op-A0V" id="zS5-gc-9O7"/>
                         <outlet property="videoView" destination="Fll-SD-qJI" id="VoN-JN-ymW"/>
                     </connections>
