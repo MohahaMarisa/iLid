@@ -48,6 +48,15 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     // Array to hold eye gaze images
     var gazeImages: [UIImage] = []
     
+    // Is text displaying
+    var textHidden = true
+    
+    @IBOutlet weak var textLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
+    // How much time
+    var timer: Timer?
+    var timeLeft = 30
+    
     // MARK: UIViewController overrides
     
     override func viewDidLoad() {
@@ -69,6 +78,13 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         self.prepareVisionRequest()
         
         self.session?.startRunning()
+        
+//        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(onTimerFires), userInfo: nil, repeats: true)
+        
+        textLabel.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
+        textLabel.isHidden = true
+        timeLabel.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
+        timeLabel.isHidden = true
     }
     
     override func didReceiveMemoryWarning() {
@@ -282,7 +298,6 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             DispatchQueue.main.async {
                 // Add the observations to the tracking list
                 // Doesn't always mean a face is present
-//                print("dispatchQueue to main thread observtions !!!!!!!!!!!!!!!!!!!!!")
                 for observation in results {
                     let faceTrackingRequest = VNTrackObjectRequest(detectedObjectObservation: observation)
                     requests.append(faceTrackingRequest)
@@ -486,15 +501,33 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         
         CATransaction.commit()
     }
-    
+    @objc func onTimerFires()
+    {
+        timeLeft -= 1
+        timeLabel.text = "\(timeLeft) seconds."
+        
+        if timeLeft <= 0 {
+            timer?.invalidate()
+            timer = nil
+            timeLabel.isHidden = true
+            timeLabel.text = "\(timeLeft) seconds."
+            textLabel.isHidden = true
+            textHidden = true
+        }
+    }
     public func findGaze(boundingBox: CGRect){
         //given a bounding box, i think the eyes should try looking for the center
         //var x = boundingBox.
         //let displaySize = self.captureDeviceResolution
         //let faceBounds = VNImageRectForNormalizedRect(boundingBox, Int(displaySize.width), Int(displaySize.height))
         
-        if (boundingBox.width > 0.7){//if the face is big enough, and thus close enough
-            print("text should show up")
+        if (boundingBox.width > 0.6 && textHidden){//if the face is big enough, and thus close enough
+            textHidden = false
+            timeLabel.isHidden = false
+            textLabel.isHidden = false
+            timeLeft = 30
+            timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(onTimerFires), userInfo: nil, repeats: true)
+            print("text should show up and timer begin")
         }else{
             let shouldBlink = Int.random(in: 0 ... 100)
             if (shouldBlink < 3){
@@ -510,7 +543,6 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                 switch UIDevice.current.orientation {
                 case .portraitUpsideDown:
                     // rotation = 180
-                    print("upsidedown")
                     col = abs(Int(y * 15))
                     row = abs(Int(x*6))
                 case .landscapeRight:
@@ -520,11 +552,11 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                     row = 6 - abs(Int(y*6))
                 default:
                     //rotation = 0
-                    print("portrait")
                     col = abs(Int(y*15))
                     row = 6 - Int(x * 6)
                 }
                 imgIndex = min(111,row * 16 + col)
+                imgIndex = max(0, imgIndex)
                 self.imageView.image = self.gazeImages[imgIndex]
             }
         }
@@ -602,7 +634,6 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                 DispatchQueue.main.async {
                     self.videoView.isHidden = false
                     self.videoHidden = false;
-                    print("video turnedOn")
                 }
             }
             return
@@ -633,8 +664,6 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                 // Perform all UI updates (drawing) on the main queue, not the background queue on which this handler is being called.
                 DispatchQueue.main.async {
                     self.drawFaceObservations(results)
-                    print("set image with \(results[0].boundingBox)")
-                    
                     self.findGaze(boundingBox: results[0].boundingBox)
                 }
             })
