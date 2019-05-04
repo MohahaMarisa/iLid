@@ -53,6 +53,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     @IBOutlet weak var textLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var blur: UIVisualEffectView!
     // How much time
     var timer: Timer?
     var timeLeft = 30
@@ -85,6 +86,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         textLabel.isHidden = true
         timeLabel.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
         timeLabel.isHidden = true
+        blur.isHidden = true
     }
     
     override func didReceiveMemoryWarning() {
@@ -513,6 +515,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             timeLabel.text = "\(timeLeft) sec."
             textLabel.isHidden = true
             textHidden = true
+            blur.isHidden = true
         }
     }
     public func findGaze(boundingBox: CGRect){
@@ -525,6 +528,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             textHidden = false
             timeLabel.isHidden = false
             textLabel.isHidden = false
+            blur.isHidden = false
             timeLeft = 30
             timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(onTimerFires), userInfo: nil, repeats: true)
             print("text should show up and timer begin")
