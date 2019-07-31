@@ -1,6 +1,8 @@
-# A wearable copy of your eyes that stay awake when you shut off
+# A wearable copy of your eyes that stay awake
 
 ![eyesagain](https://user-images.githubusercontent.com/17015799/62248019-1f793380-b3b5-11e9-85e1-7113b13426ed.jpg)
+
+## Make an img array copy of your eyes with Processing app
 
 ## Moving the eyes by tracking visitor faces in real time
 
