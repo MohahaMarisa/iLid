@@ -3,6 +3,8 @@
 ![eyesagain](https://user-images.githubusercontent.com/17015799/62248019-1f793380-b3b5-11e9-85e1-7113b13426ed.jpg)
 
 ## Make an img array copy of your eyes with Processing app
+setup a webcam, keep your head steady, and look at each of those dots so that we capture a full range of eye motion. The processing app outputs jpg on button press
+![eyeCalibration](https://user-images.githubusercontent.com/17015799/62248857-1c7f4280-b3b7-11e9-906e-ba2a28b30a78.gif)
 
 ## Moving the eyes by tracking visitor faces in real time
 
