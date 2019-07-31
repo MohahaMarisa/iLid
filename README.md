@@ -15,7 +15,7 @@ Detect and track faces from the selfie cam feed in real time.
 ![eyeDrift](https://user-images.githubusercontent.com/17015799/62249428-661c5d00-b3b8-11e9-92e6-3d2ded9e9af2.gif)
 (in this case, the eye-set is following the face of the person behind the camera)
 
-## Overview
+## Overview of CV in XCode Project
 
 The [Vision](https://developer.apple.com/documentation/vision) framework can detect and track rectangles, faces, and other salient objects across a sequence of images.
 
