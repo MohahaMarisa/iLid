@@ -1,4 +1,8 @@
-# Tracking the User's Face in Real Time
+# A wearable copy of your eyes that stay awake when you shut off
+
+![eyesagain](https://user-images.githubusercontent.com/17015799/62248019-1f793380-b3b5-11e9-85e1-7113b13426ed.jpg)
+
+## Moving the eyes by tracking visitor faces in real time
 
 Detect and track faces from the selfie cam feed in real time.
 
